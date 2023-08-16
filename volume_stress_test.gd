@@ -23,12 +23,12 @@ func _process(delta):
 			
 			test_ui_node.update_perfomance_label("Resolution: %sx%s\n%s FPS"%[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y,(Engine.get_frames_per_second())])
 		StressTest.STAGE.TEST:
-			test_ui_node.test_data_label.text = "Things: %s/%s (%3.4f)\n%s FPS\n%3.4f%s Relative Performance\nFrame Time: %3.4f ms"%[current_total,total_things,100.0*float(current_total)/total_things,Engine.get_frames_per_second(),float(Engine.get_frames_per_second())/base_fps*100.0,"%", delta*100.0]
+			test_ui_node.test_data_label.text = "Things: %s/%s (%3.4f)\n%s FPS\n%3.4f%s Relative Performance\nFrame Time: %3.4f ms"%[current_total,total_things,100.0*float(current_total)/total_things,Engine.get_frames_per_second(),float(Engine.get_frames_per_second())/base_fps*100.0,"%", delta*1000.0]
 	pass
 
 func add_the_stuff(): #i'm just done, man
 	var new_node = Node3D.new()
-	var current_time = Time.get_ticks_usec()/1.0e+6
+	var current_time : int = Time.get_ticks_usec()
 	var things_total : int = 0
 	for x in range(size_x):
 		for y in range(size_y):
@@ -41,14 +41,18 @@ func add_the_stuff(): #i'm just done, man
 #				print(things_total)
 #				print(100.0*float(things_total)/total_things)
 				current_total = things_total
-				if (Time.get_ticks_usec()/1.0e+6)-current_total>1.0/60.0:
+				var new_time : int = Time.get_ticks_usec()
+				if (new_time-current_time) > 1.0e+6/60.0:
 					await RenderingServer.frame_post_draw
-					await RenderingServer.frame_post_draw
-					await RenderingServer.frame_post_draw
-					await RenderingServer.frame_post_draw
-					#total_things = things_total # favorite line so far # wrong variable :(
-#					current_total = things_total
-					current_time = Time.get_ticks_usec()/1.0e+6
+					current_time = Time.get_ticks_usec()
+#				if (Time.get_ticks_usec()/1.0e+6)-current_total>1.0/60.0:
+#					await RenderingServer.frame_post_draw
+#					await RenderingServer.frame_post_draw
+#					await RenderingServer.frame_post_draw
+#					await RenderingServer.frame_post_draw
+#					#total_things = things_total # favorite line so far # wrong variable :(
+##					current_total = things_total
+#					current_time = Time.get_ticks_usec()/1.0e+6
 	test_node.add_child(new_node)
 	test_ui_node.test_status_label.text = "Measuring Relative Performance..."
 	$"Test Timer".start()
@@ -99,5 +103,5 @@ func _on_test_timer_timeout():
 	get_tree().root.unresizable = false
 	for child in test_node.get_children():
 		child.queue_free()
-	test_ui_node.test_complet_data_label.text = "Total Things: %s\nRelative Performance: %3.4f%s\nBase FPS: %s\nTest FPS: %s"%[total_things,float(test_fps)/base_fps*100.0,"%",base_fps,test_fps]
+	test_ui_node.test_complet_data_label.text = "Total Things: %s\nRelative Performance: %3.4f%s\nControl FPS: %s\nTest FPS: %s"%[total_things,float(test_fps)/base_fps*100.0,"%",base_fps,test_fps]
 	pass # Replace with function body.
