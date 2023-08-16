@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://308cxkpqx6ip"]
+
+[ext_resource type="PackedScene" uid="uid://0r6d3ilgtna4" path="res://input_ui.tscn" id="1_6uj2t"]
+[ext_resource type="Script" path="res://volume_stress_test.gd" id="1_t2ikx"]
+[ext_resource type="PackedScene" uid="uid://w6qbscfiyoob" path="res://test_volume.tscn" id="2_dhf0v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_32jsb"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_epqsh"]
+sky_material = SubResource("ProceduralSkyMaterial_32jsb")
+
+[sub_resource type="Environment" id="Environment_0l41t"]
+background_mode = 2
+sky = SubResource("Sky_epqsh")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+
+[node name="Volume Stress Test" type="Node3D" node_paths=PackedStringArray("test_ui_node", "test_node")]
+script = ExtResource("1_t2ikx")
+test_ui_node = NodePath("Input UI")
+test_instance_scene = ExtResource("2_dhf0v")
+test_node = NodePath("Test Node")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0l41t")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 2)
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Test Node" type="Node3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.816138, -0.577858, 0, 0.577858, 0.816138, 0, 0, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="Node3D/Camera3D"]
+target_position = Vector3(0, 0, -50)
+
+[node name="Input UI" parent="." instance=ExtResource("1_6uj2t")]
+
+[node name="Test Volume" parent="." instance=ExtResource("2_dhf0v")]
+visible = false
+
+[node name="Base Performace Capture Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Test Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="LaunchTest" from="Input UI" to="." method="_on_input_ui_launch_test"]
+[connection signal="timeout" from="Base Performace Capture Timer" to="." method="_on_base_performace_capture_timer_timeout"]
+[connection signal="timeout" from="Test Timer" to="." method="_on_test_timer_timeout"]

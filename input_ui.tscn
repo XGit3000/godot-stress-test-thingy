@@ -1,0 +1,182 @@
+[gd_scene load_steps=2 format=3 uid="uid://0r6d3ilgtna4"]
+
+[ext_resource type="Script" path="res://input_ui.gd" id="1_do6qx"]
+
+[node name="Test UI" type="Control" node_paths=PackedStringArray("x_size_spinbox", "x_size_slider", "y_size_spinbox", "y_size_slider", "z_size_spinbox", "z_size_slider", "total_size_label", "parent_control", "input_control", "capture_control", "test_control", "complete_control", "performance_label", "test_status_label", "test_data_label", "test_complet_data_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_do6qx")
+x_size_spinbox = NodePath("Panel/sum margins/Input VBox/HBoxContainer/XSpinBox")
+x_size_slider = NodePath("Panel/sum margins/Input VBox/XSlider")
+y_size_spinbox = NodePath("Panel/sum margins/Input VBox/HBoxContainer2/YSpinBox")
+y_size_slider = NodePath("Panel/sum margins/Input VBox/XSlider2")
+z_size_spinbox = NodePath("Panel/sum margins/Input VBox/HBoxContainer3/ZSpinBox")
+z_size_slider = NodePath("Panel/sum margins/Input VBox/XSlider3")
+total_size_label = NodePath("Panel/sum margins/Input VBox/Label")
+parent_control = NodePath("Panel/sum margins")
+input_control = NodePath("Panel/sum margins/Input VBox")
+capture_control = NodePath("Panel/sum margins/Control Capture VBox")
+test_control = NodePath("Panel/sum margins/Test VBox")
+complete_control = NodePath("Panel/sum margins/Complete VBox")
+performance_label = NodePath("Panel/sum margins/Control Capture VBox/Performance Label")
+test_status_label = NodePath("Panel/sum margins/Test VBox/Test Status Label")
+test_data_label = NodePath("Panel/sum margins/Test VBox/Test Data Label")
+test_complet_data_label = NodePath("Panel/sum margins/Complete VBox/Test Complete Data")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.273
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="sum margins" type="Control" parent="Panel"]
+layout_mode = 1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Input VBox" type="VBoxContainer" parent="Panel/sum margins"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/sum margins/Input VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/sum margins/Input VBox/HBoxContainer"]
+layout_mode = 2
+text = "X Size:"
+
+[node name="XSpinBox" type="SpinBox" parent="Panel/sum margins/Input VBox/HBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="XSlider" type="HSlider" parent="Panel/sum margins/Input VBox"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+rounded = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/sum margins/Input VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/sum margins/Input VBox/HBoxContainer2"]
+layout_mode = 2
+text = "Y Size:"
+
+[node name="YSpinBox" type="SpinBox" parent="Panel/sum margins/Input VBox/HBoxContainer2"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="XSlider2" type="HSlider" parent="Panel/sum margins/Input VBox"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+rounded = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/sum margins/Input VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/sum margins/Input VBox/HBoxContainer3"]
+layout_mode = 2
+text = "Z Size:"
+
+[node name="ZSpinBox" type="SpinBox" parent="Panel/sum margins/Input VBox/HBoxContainer3"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+
+[node name="XSlider3" type="HSlider" parent="Panel/sum margins/Input VBox"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+rounded = true
+
+[node name="Label" type="Label" parent="Panel/sum margins/Input VBox"]
+layout_mode = 2
+text = "Total: 1"
+
+[node name="Launch Button" type="Button" parent="Panel/sum margins/Input VBox"]
+layout_mode = 2
+text = "Launch Stress Test"
+
+[node name="Control Capture VBox" type="VBoxContainer" parent="Panel/sum margins"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/sum margins/Control Capture VBox"]
+layout_mode = 2
+text = "Capturing Base Performance..."
+
+[node name="Performance Label" type="Label" parent="Panel/sum margins/Control Capture VBox"]
+layout_mode = 2
+text = "sdafs"
+
+[node name="Test VBox" type="VBoxContainer" parent="Panel/sum margins"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Test Status Label" type="Label" parent="Panel/sum margins/Test VBox"]
+layout_mode = 2
+text = "Initializing Test..."
+
+[node name="Test Data Label" type="Label" parent="Panel/sum margins/Test VBox"]
+layout_mode = 2
+text = "Total: 0"
+
+[node name="Complete VBox" type="VBoxContainer" parent="Panel/sum margins"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/sum margins/Complete VBox"]
+layout_mode = 2
+text = "Test Complete!!"
+
+[node name="Test Complete Data" type="Label" parent="Panel/sum margins/Complete VBox"]
+layout_mode = 2
+text = "Total: 0"
+
+[node name="Restart Test Button" type="Button" parent="Panel/sum margins/Complete VBox"]
+layout_mode = 2
+text = "Start New Test"
+
+[connection signal="value_changed" from="Panel/sum margins/Input VBox/HBoxContainer/XSpinBox" to="." method="_on_x_spin_box_value_changed"]
+[connection signal="value_changed" from="Panel/sum margins/Input VBox/HBoxContainer2/YSpinBox" to="." method="_on_y_spin_box_value_changed"]
+[connection signal="value_changed" from="Panel/sum margins/Input VBox/HBoxContainer3/ZSpinBox" to="." method="_on_z_spin_box_value_changed"]
+[connection signal="pressed" from="Panel/sum margins/Input VBox/Launch Button" to="." method="_on_launch_button_pressed"]
+[connection signal="pressed" from="Panel/sum margins/Complete VBox/Restart Test Button" to="." method="_on_restart_test_button_pressed"]

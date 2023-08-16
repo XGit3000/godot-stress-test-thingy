@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://w6qbscfiyoob"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_cfxh5"]
+density = 4.1304
+
+[node name="Test Volume" type="FogVolume"]
+size = Vector3(0.5, 0.5, 0.5)
+shape = 0
+material = SubResource("FogMaterial_cfxh5")
