@@ -69,6 +69,7 @@ func _on_input_ui_launch_test():
 #	ProjectSettings.set_setting("display/window/size/viewport_height", thing.y)
 #	DisplayServer.window_set_size(thing)
 	get_tree().root.unresizable = true
+#	get_tree().root.unfocusable = true
 #	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 #	get_viewport().set_size_2d_override(thing)D q	
 	var ugh = self.get_viewport()
@@ -101,6 +102,7 @@ func _on_test_timer_timeout():
 	stage = StressTest.STAGE.COMPLETE
 	test_ui_node.stage = StressTest.STAGE.COMPLETE
 	get_tree().root.unresizable = false
+#	get_tree().root.unfocusable = false
 	for child in test_node.get_children():
 		child.queue_free()
 	test_ui_node.test_complet_data_label.text = "Total Things: %s\nRelative Performance: %3.4f%s\nControl FPS: %s\nTest FPS: %s"%[total_things,float(test_fps)/base_fps*100.0,"%",base_fps,test_fps]

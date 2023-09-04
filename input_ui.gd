@@ -46,7 +46,29 @@ func _ready():
 	x_size_spinbox.share(x_size_slider)
 	y_size_spinbox.share(y_size_slider)
 	z_size_spinbox.share(z_size_slider)
+	load_test_settings()
 	pass # Replace with function body.
+
+func save_test_settings(path : String = "user://test_settings.json"):
+	var file = FileAccess.open(path,FileAccess.WRITE)
+	file.store_string(JSON.stringify({"size_x":x_size,"size_y":y_size,"size_z":z_size}))
+	file.close()
+
+func load_test_settings(path : String = "user://test_settings.json"):
+	var file = FileAccess.open(path,FileAccess.READ)
+	if file == null: return
+	var text = file.get_as_text()
+	var json_thing = JSON.parse_string(text)
+	if json_thing != null:
+		x_size = json_thing["size_x"]
+		y_size = json_thing["size_y"]
+		z_size = json_thing["size_z"]
+		update_values()
+
+func update_values():
+	x_size_spinbox.value = x_size
+	y_size_spinbox.value = y_size
+	z_size_spinbox.value = z_size
 
 signal LaunchTest
 
@@ -91,6 +113,7 @@ func _on_z_spin_box_value_changed(value):
 func _on_launch_button_pressed():
 	print("lol")
 	emit_signal("LaunchTest")
+	save_test_settings()
 	pass # Replace with function body.
 
 
